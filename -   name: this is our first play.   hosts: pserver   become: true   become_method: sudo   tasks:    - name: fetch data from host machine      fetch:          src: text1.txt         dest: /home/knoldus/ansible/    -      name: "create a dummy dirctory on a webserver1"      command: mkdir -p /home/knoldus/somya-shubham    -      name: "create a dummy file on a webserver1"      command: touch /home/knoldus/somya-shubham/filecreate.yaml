@@ -1,6 +1,6 @@
 -
   name: this is our first play.
-  hosts: pserver
+
   become: true
   become_method: sudo
   tasks:
