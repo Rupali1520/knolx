@@ -1,0 +1,10 @@
+-
+  name: this is our first play.
+  hosts: pserver
+  become: true
+  become_method: sudo
+  tasks:
+
+   -
+     name: "create a dummy file on a server1"
+     command: touch /home/ubuntu/f1.txt
