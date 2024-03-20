@@ -1,6 +1,5 @@
 -
   name: this is our first play.
-
   become: true
   become_method: sudo
   tasks:
