@@ -1,0 +1,41 @@
+- name: install docker 
+  hosts: all
+  become: true
+  become_method: sudo
+  tasks:
+   - name: update system
+     apt: 
+      update_cache: yes
+      force_apt_get: yes
+   - name: install some packages
+     apt:
+      name:
+       - ca-certificates
+       - curl
+       - gnupg
+      state: latest
+   - name: install gpg key for docker
+     ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+   - name: set up repo
+     ansible.builtin.apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable 
+        state: present
+   - name: update system
+     apt: 
+       update_cache: yes
+       force_apt_get: yes
+
+   - name: Install docker
+     apt:
+       name: "{{ item }}" 
+       state: latest
+       install_recommends: yes
+       force_apt_get: yes
+     with_items:
+      - docker-ce 
+      - docker-ce-cli 
+      - containerd.io 
+      - docker-buildx-plugin 
+      - docker-compose-plugin
