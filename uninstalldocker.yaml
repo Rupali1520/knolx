@@ -1,0 +1,26 @@
+- name: unnstall properly docker from the system
+  hosts: all
+  become: true
+  become_method: sudo
+  tasks:
+   - name: remove docker package
+     apt:
+       name: "{{ item }}"
+       state: absent
+       purge: yes
+       force_apt_get: yes
+       install_recommends: yes
+     with_items:
+         - docker.io
+         - docker-ce
+         - docker-ce-cli
+         - docker-buildx-plugin
+         - docker-compose-plugin
+         - docker-ce-rootless-extras
+   - name: remove files
+     file:
+       path: 
+        - /var/lib/docker
+        - /var/lib/containerd
+       state: absent
+        
